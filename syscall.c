@@ -96,7 +96,7 @@ static int (*syscalls[])(void) = {
     [SYS_sleep] sys_sleep, [SYS_uptime] sys_uptime, [SYS_open] sys_open,
     [SYS_write] sys_write, [SYS_mknod] sys_mknod,   [SYS_unlink] sys_unlink,
     [SYS_link] sys_link,   [SYS_mkdir] sys_mkdir,   [SYS_close] sys_close,
-    [SYS_link] sys_uniq,
+    [SYS_uniq] sys_uniq,
 };
 
 void syscall(void) {
