@@ -6,21 +6,19 @@ char buf[512];
 
 void uniq(int fd) {
   int i, n;
-  //   int *start;
-  //   char *prev;
+//   char *curr;
+//   char *prev;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
-    // int start = 0;
-    // int end = 0;
+    printf(1, "reading from buffer");
+    int start = 0;
+    int end = 0;
     for (i = 0; i < n; i++) {
       if (buf[i] == '\n') {
-          printf(1, "\n");
-        // end = i;
-        // printf(1, "This is the %dth character: ", i);
-        // for (;start <= end; start++){
-        //     printf(1, "%c", buf[i]);
-        // }
-      } else {
-          printf(1,"%c", buf[i]);
+        printf(1, "\n");
+        end = i;
+        for (; start <= end; start++) {
+          printf(1, "%c", buf[i]);
+        }
       }
     }
   }
