@@ -14,10 +14,9 @@ void uniq(int fd) {
     int end = 0;
     for (i = 0; i < n; i++) {
       if (buf[i] == '\n') {
-        printf(1, "\n");
         end = i;
-        for (start = start; start <= end; start++) {
-          printf(1, "%s", buf[i]);
+        for (; start <= end; start++) {
+          printf(1, &buf[i]);
         }
       }
     }
