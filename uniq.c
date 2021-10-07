@@ -9,15 +9,18 @@ void uniq(int fd) {
   //   int *start;
   //   char *prev;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
-    int start = 0;
-    int end = 0;
+    // int start = 0;
+    // int end = 0;
     for (i = 0; i < n; i++) {
       if (buf[i] == '\n') {
-        end = i;
-        printf(1, "This is the %dth string: ", i);
-        for (;start <= end; start++){
-            printf(1, "%c", buf[i]);
-        }
+          printf(1, "\n");
+        // end = i;
+        // printf(1, "This is the %dth character: ", i);
+        // for (;start <= end; start++){
+        //     printf(1, "%c", buf[i]);
+        // }
+      } else {
+          printf(1,"%c", buf[i]);
       }
     }
   }
