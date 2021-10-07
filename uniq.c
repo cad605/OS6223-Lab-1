@@ -6,15 +6,13 @@ char buf[512];
 
 void uniq(int fd) {
   int i, n;
-//   int *start;
-//   char *prev;
+  //   int *start;
+  //   char *prev;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     for (i = 0; i < n; i++) {
-        printf(1, "This is the %dth string: %s",i, buf[i]);
-    //   if (buf[i] == '\n') {
-
-    //   } else {
-    //   }
+      if (buf[i] == '\n') {
+        printf(1, "This is the %dth string: %s.\n", i, &buf[i]);
+      }
     }
   }
   if (n < 0) {
