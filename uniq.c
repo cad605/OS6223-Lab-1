@@ -15,7 +15,7 @@ int strcmp(const char *X, const char *Y) {
   return *(const unsigned char *)X - *(const unsigned char *)Y;
 }
 
-void uniq(int fd) {
+void sys_uniq(int fd) {
   int i, n;
   int *start;
   char *prev;
