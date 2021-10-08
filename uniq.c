@@ -17,6 +17,7 @@ void uniq(int fd) {
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     for (i = 0; i < n; i++) {
       
+      // handle overflow
       if (sizeof(cur_line) == BUFFSIZE) {
         char *temp = (char *)malloc(BUFFSIZE * 2);
         strcpy(temp, cur_line);
@@ -26,6 +27,7 @@ void uniq(int fd) {
       
       *(cur_line + i) = buf[i];
       
+      // handle newline
       if (buf[i] == '\n') {
         if (!(strcmp(cur_line, prev_line))) {
           printf(1, "%s", cur_line);
@@ -33,7 +35,7 @@ void uniq(int fd) {
         prev_line = (char *)malloc(sizeof(cur_line));
         strcpy(prev_line, cur_line);
         free(cur_line);
-        char *cur_line = (char *)malloc(BUFFSIZE);
+        cur_line = (char *)malloc(sizeof(prev_line));
       }
     }
   }
