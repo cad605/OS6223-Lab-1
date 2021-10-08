@@ -11,7 +11,7 @@ static int count_group, dups_only, ignore_case = 0;
  * collapsed to one*/
 void uniq(int fd) {
   char *cur_line = (char *)malloc(BUFFSIZE);
-  char *prev_line;
+  char *prev_line = (char *)malloc(BUFFSIZE);;
   int i, n, j;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
@@ -20,10 +20,15 @@ void uniq(int fd) {
 
       // handle overflow
       if (sizeof(cur_line) == BUFFSIZE) {
-        char *temp = (char *)malloc(BUFFSIZE * 2);
-        strcpy(temp, cur_line);
+        char *temp1 = (char *)malloc(BUFFSIZE * 2);
+        strcpy(temp1, cur_line);
         free(cur_line);
-        cur_line = temp;
+        cur_line = temp1;
+
+        char *temp2 = (char *)malloc(BUFFSIZE * 2);
+        strcpy(temp2, prev_line);
+        free(prev_line);
+        prev_line = temp2;
       }
 
       *(cur_line + j) = buf[i];
@@ -43,12 +48,13 @@ void uniq(int fd) {
       }
     }
   }
+  free(cur_line);
+  free(prev_line);
 
   if (n < 0) {
     printf(1, "uniq: read error\n");
     exit();
   }
-  printf(1, "\n");
 }
 
 int main(int argc, char *argv[]) {
