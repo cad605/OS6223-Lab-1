@@ -3,23 +3,23 @@
 #include "user.h"
 #define MAXLINE 1000
 
-char buf[512];
+char buf[MAXLINE];
 char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
 
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
-  //   char line[MAXLINE];
+  char *cur_line, *prev_line = malloc(MAXLINE);
   int i, n;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
-      write(1, buf, n);
-    // for (i = 0; i < n; i++) {
-    //   if (buf[i] == '\n') {
-    //     printf(1, "%s", buf[i]);
-    //   }
-    // }
+    for (i = 0; i < n; i++) {
+      printf(1, "%c", buf[i]);
+      //   if (buf[i] == '\n') {
+      //     printf(1, "%s", buf[i]);
+      //   }
+    }
   }
 
   if (n < 0) {
