@@ -1,12 +1,22 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#include <ctype.h>
 #define BUFFSIZE 100
 
 char buf[BUFFSIZE];
 char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
+
+char* toLowerCase(char* str) {
+    char* s = str;
+    while (*str != '\0') { // not the end of the string
+        if (*str >= 'A' && *str <= 'Z') {
+            *str = *str + 32;
+        }
+        ++ str;
+    }
+    return s;
+}
 
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
@@ -38,10 +48,9 @@ void uniq(int fd) {
 
       // handle newline
       if (buf[i] == '\n' || i == n - 1) {
-        if (ignore_case) {
-          for ( ; *cur_line; ++cur_line) *cur_line = tolower(*cur_line);
-        }
-        if ((strcmp(cur_line, prev_line)) != 0) {
+        if (ignore_case && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
+          printf(1, "%s", cur_line);
+        } else if ((strcmp(cur_line, prev_line)) != 0) {
           printf(1, "%s", cur_line);
         }
         free(prev_line);
