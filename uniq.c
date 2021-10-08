@@ -7,9 +7,7 @@ char buf[BUFFSIZE];
 char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
 
-char* handleOverflow(char *line) {
-
-}
+char *handleOverflow(char *line) {}
 
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
@@ -20,14 +18,13 @@ void uniq(int fd) {
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     for (i = 0; i < n; i++) {
-        if (sizeof(cur_line) == BUFFSIZE){
-            char *temp = (char *)malloc(BUFFSIZE * 2);
-            for(i = 0; i < sizeof(cur_line); i++){
-                *(temp + i) = *(cur_line + i);
-            }
-            free(cur_line);
-            cur_line = temp;
-        }
+      if (sizeof(cur_line) == BUFFSIZE) {
+          (char*) realloc(name, (i+1)*4);
+        char *temp = (char *)malloc(BUFFSIZE * 2);
+        strcpy(temp, cur_line);
+        free(cur_line);
+        cur_line = temp;
+      }
       *(cur_line + i) = buf[i];
       if (buf[i] == '\n') {
         if (!(strcmp(cur_line, prev_line))) {
