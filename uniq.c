@@ -10,16 +10,16 @@ static int count_group, dups_only, ignore_case = 0;
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
-  printf(1, "uniq: starting\n");
   //   char line[MAXLINE];
   int i, n;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
-    for (i = 0; i < n; i++) {
-      if (buf[i] == '\n') {
-        printf(1, "%s", buf[i]);
-      }
-    }
+      write(1, buf, n);
+    // for (i = 0; i < n; i++) {
+    //   if (buf[i] == '\n') {
+    //     printf(1, "%s", buf[i]);
+    //   }
+    // }
   }
 
   if (n < 0) {
@@ -32,7 +32,7 @@ void uniq(int fd) {
 int main(int argc, char *argv[]) {
   int fd, i, c;
 
-  if (argc < 1) {
+  if (argc <= 1) {
     uniq(0);
     exit();
   }
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  for (i = 1; i < argc; i++) {
+  for (i = 0; i < argc; i++) {
     if ((fd = open(argv[i], 0)) < 0) {
       printf(1, "uniq: cannot open %s\n", argv[i]);
       exit();
