@@ -24,7 +24,7 @@ void uniq(int fd) {
     }
   }
   if (n < 0) {
-    printf(1, "wc: read error\n");
+    printf(1, "uniq: read error\n");
     exit();
   }
 }
