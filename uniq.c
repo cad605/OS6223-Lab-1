@@ -37,8 +37,8 @@ void uniq(int fd) {
 
       // handle newline
       if (buf[i] == '\n') {
-        if ((strcmp(cur_line, prev_line))) {
-            printf(1, "%dth Compare: %s and %s", i, cur_line, prev_line);
+        printf(1, "Compare: %s and %s\n", cur_line, prev_line);
+        if ((strcmp(cur_line, prev_line)) != 0) {
           printf(1, "%s", cur_line);
         }
         free(prev_line);
