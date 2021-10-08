@@ -10,15 +10,16 @@ static int count_group, dups_only, ignore_case = 0;
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
-  char *cur_line, *prev_line = malloc(MAXLINE);
-  int i, n;
+  char *cur_line, *prev_line = (char *)malloc(MAXLINE + 1);
+  int i, n, eol = 0;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
+    eol = 0;
     for (i = 0; i < n; i++) {
-      printf(1, "%c", buf[i]);
-      //   if (buf[i] == '\n') {
-      //     printf(1, "%s", buf[i]);
-      //   }
+        *(cur_line+i) = buf[i];
+        if (buf[i] == '\n') {
+          eol = 1;
+        }
     }
   }
 
