@@ -51,6 +51,7 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+  printf(1, "argc: %d", argc);
   if (argc <= 1) {
     uniq(0);
     exit();
