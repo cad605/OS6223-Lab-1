@@ -2,27 +2,21 @@
 #include "stat.h"
 #include "user.h"
 
+char buf[512];
+
 void uniq(int fd) {
-  int i, n;
-  char buf[512];
-  
-  for (;;) {
-    n = read(0, buf, sizeof buf);
-    if (n == 0)
-      break;
-    if (n < 0) {
-      fprintf(2, "read error\n");
-      exit();
-    }
-    if (write(1, buf, n) != n) {
-      fprintf(2, "write error\n");
-      exit();
-    }
+  int n;
+
+  while ((n = read(fd, buf, sizeof(buf))) > 0)
+    write(1, buf, n);
+  if (n < 0) {
+    printf(1, "cat: read error\n");
+    exit();
   }
-  
 }
 
 int main(int argc, char *argv[]) {
+//   char delimiter = '\n';
   int fd, i;
 
   // read from standard input
