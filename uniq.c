@@ -7,9 +7,10 @@ char buf[512];
 char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
 
-/* When fed an input, outputs the input with adjacent identical lines collapsed
- * to one*/
+/* uniq: when fed an input, outputs the input with adjacent identical lines
+ * collapsed to one*/
 void uniq(int fd) {
+  //   char line[MAXLINE];
   int i, n, lines = 0;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
@@ -22,18 +23,17 @@ void uniq(int fd) {
   }
 
   if (n < 0) {
-    printf(1, "cat: read error\n");
+    printf(1, "uniq: read error\n");
     exit();
   }
+  printf(1, "\n");
 }
 
 int main(int argc, char *argv[]) {
-  char line[MAXLINE];
-  long lineno = 0;
-  int fd, i, c, except = 0, number = 0, found = 0;
+  int fd, i, c;
 
   while (--argc > 0 && (*++argv)[0] == '-') {
-    while (c = *++argv[0]) {
+    while ((c = *++argv[0])) {
       switch (c) {
       // count, group, and prefix lines by the number of occurrences
       case 'c':
