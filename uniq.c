@@ -1,14 +1,21 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
+#define MAXLINE 1000
 
 char buf[512];
 char delimiter = '\n';
 
+/* When fed an input, outputs the input with adjacent identical lines collapsed to one*/
 void uniq(int fd, char delimiter) {
-  int n;
+  int i, n, lines = 0;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
+    for (i = 0; i < n; i++) {
+        if (buf[i] == '\n'){
+            lines++;
+        }
+    }
     write(1, buf, n);
   }
 
