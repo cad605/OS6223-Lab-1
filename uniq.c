@@ -1,16 +1,20 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#define MAXLINE 1000
+#define BUFFSIZE 1000
 
-char buf[MAXLINE];
+char buf[BUFFSIZE];
 char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
 
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
-  char *cur_line, *prev_line = (char *)malloc(MAXLINE + 1);
+    int size = 4;
+  
+  /* Stored in heap segment like other dynamically allocated things */
+  char *str = (char *)malloc(sizeof(char)*size)
+  char *cur_line, *prev_line = (char *)malloc(sizeof(char)*size);
   int i, n, eol = 0;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
