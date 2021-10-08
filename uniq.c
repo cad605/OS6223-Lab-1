@@ -11,7 +11,8 @@ static int count_group, dups_only, ignore_case = 0;
  * collapsed to one*/
 void uniq(int fd) {
   char *cur_line = (char *)malloc(BUFFSIZE);
-  char *prev_line = (char *)malloc(BUFFSIZE);;
+  char *prev_line = (char *)malloc(BUFFSIZE);
+  ;
   int i, n, j;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
@@ -19,7 +20,7 @@ void uniq(int fd) {
     for (i = 0; i < n; i++) {
 
       // handle overflow
-      if (sizeof(cur_line) == BUFFSIZE) {
+      if (j == BUFFSIZE) {
         char *temp1 = (char *)malloc(BUFFSIZE * 2);
         strcpy(temp1, cur_line);
         free(cur_line);
@@ -71,12 +72,15 @@ int main(int argc, char *argv[]) {
       // count, group, and prefix lines by the number of occurrences
       case 'c':
         count_group = 1;
-      // only print duplicate lines
-      case 'd':
-        dups_only = 1;
+        break;
       // ignore differences in case when comparing
       case 'i':
         ignore_case = 1;
+        break;
+      // only print duplicate lines
+      case 'd':
+        dups_only = 1;
+        break;
       default:
         printf(1, "uniq: illegal option %c\n", c);
         argc = 0;
