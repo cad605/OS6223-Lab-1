@@ -10,16 +10,16 @@ static int count_group, dups_only, ignore_case = 0;
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
+  printf(1, "uniq: starting\n");
   //   char line[MAXLINE];
-  int i, n, lines = 0;
+  int i, n;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     for (i = 0; i < n; i++) {
       if (buf[i] == '\n') {
-        lines++;
+        printf(1, "%s", buf[i]);
       }
     }
-    write(1, buf, n);
   }
 
   if (n < 0) {
