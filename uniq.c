@@ -10,35 +10,36 @@ static int count_group, dups_only, ignore_case = 0;
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
-  char *cur_line = (char *)malloc(2);
-//   char *prev_line;
-  int i, n;
+  char *cur_line = (char *)malloc(BUFFSIZE);
+  char *prev_line;
+  int i, n, j;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
+    j = 0;
     for (i = 0; i < n; i++) {
 
       // handle overflow
-    //   if (sizeof(cur_line) == 2) {
+      if (sizeof(cur_line) == BUFFSIZE) {
         char *temp = (char *)malloc(BUFFSIZE * 2);
         strcpy(temp, cur_line);
         free(cur_line);
         cur_line = temp;
-    //   }
+      }
 
-      *(cur_line + i) = buf[i];
-      printf(1, "%s", cur_line);
+      *(cur_line + j) = buf[i];
+      j = j + 1;
 
       // handle newline
       if (buf[i] == '\n') {
-        printf(1, "%s", cur_line);
-        // if (!(strcmp(cur_line, prev_line))) {
-        //   printf(1, "%s", cur_line);
-        // }
-        // free(prev_line);
-        // prev_line = (char *)malloc(sizeof(cur_line));
-        // strcpy(prev_line, cur_line);
+        if (!(strcmp(cur_line, prev_line))) {
+          printf(1, "%s", cur_line);
+        }
+        free(prev_line);
+        prev_line = (char *)malloc(sizeof(cur_line));
+        strcpy(prev_line, cur_line);
         free(cur_line);
-        cur_line = (char *)malloc(2);
+        cur_line = (char *)malloc(sizeof(prev_line));
+        j = 0;
       }
     }
   }
