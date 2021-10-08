@@ -2,6 +2,7 @@
 #include "stat.h"
 #include "user.h"
 #define BUFFSIZE 1000
+#define CHARSIZE 4
 
 char buf[BUFFSIZE];
 char delimiter = '\n';
@@ -10,20 +11,19 @@ static int count_group, dups_only, ignore_case = 0;
 /* uniq: when fed an input, outputs the input with adjacent identical lines
  * collapsed to one*/
 void uniq(int fd) {
-    int size = 4;
-  
-  /* Stored in heap segment like other dynamically allocated things */
-  char *str = (char *)malloc(sizeof(char)*size)
-  char *cur_line, *prev_line = (char *)malloc(sizeof(char)*size);
-  int i, n, eol = 0;
+  char *cur_line = (char *)malloc(sizeof(char) * CHARSIZE);
+  char *prev_line = (char *)malloc(sizeof(char) * CHARSIZE);
+  int i, n;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
-    eol = 0;
     for (i = 0; i < n; i++) {
-        *(cur_line+i) = buf[i];
-        if (buf[i] == '\n') {
-          eol = 1;
+      *(cur_line + i) = buf[i];
+      if (buf[i] == '\n') {
+        if (!(strcmp(cur_line, prev_line))) {
+          printf(1, "%s", cur_line);
         }
+        prev_line = cur_line;
+      }
     }
   }
 
