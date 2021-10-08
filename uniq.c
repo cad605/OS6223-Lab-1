@@ -1,6 +1,7 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
+#include <ctype.h>
 #define BUFFSIZE 100
 
 char buf[BUFFSIZE];
@@ -36,8 +37,10 @@ void uniq(int fd) {
       j = j + 1;
 
       // handle newline
-      if (buf[i] == '\n') {
-        printf(1, "Compare: %s and %s\n", cur_line, prev_line);
+      if (buf[i] == '\n' || i == n - 1) {
+        if (ignore_case) {
+          for ( ; *cur_line; ++cur_line) *cur_line = tolower(*cur_line);
+        }
         if ((strcmp(cur_line, prev_line)) != 0) {
           printf(1, "%s", cur_line);
         }
