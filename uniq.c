@@ -26,6 +26,26 @@ void uniq(int fd, char delimiter) {
 }
 
 int main(int argc, char *argv[]) {
+    char line[MAXLINE];
+    long lineno = 0;
+    int c, except = 0, number = 0, found = 0;
+
+    while(--argc > 0 && (*++argv)[0] == '-'){
+        while(c = *++argv[0]){
+            switch(c){
+                // count and group prefix lines by the number of occurrences
+                case 'c':
+                //only print duplicate lines
+                case 'd':
+                //ignore differences in case when comparing
+                case 'i':
+                default:
+                    printf(1, "uniq: illegal option %c\n", c);
+                    argc = 0;
+                    break;
+            }
+        }
+    }
   int fd, i;
 
   if (argc <= 1) {
