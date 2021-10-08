@@ -32,6 +32,11 @@ void uniq(int fd) {
 int main(int argc, char *argv[]) {
   int fd, i, c;
 
+  if (argc < 1) {
+    uniq(0);
+    exit();
+  }
+
   while (--argc > 0 && (*++argv)[0] == '-') {
     while ((c = *++argv[0])) {
       switch (c) {
@@ -50,11 +55,6 @@ int main(int argc, char *argv[]) {
         break;
       }
     }
-  }
-  printf(1, "argc: %d", argc);
-  if (argc <= 1) {
-    uniq(0);
-    exit();
   }
 
   for (i = 1; i < argc; i++) {
