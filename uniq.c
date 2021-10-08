@@ -10,10 +10,10 @@ void uniq(int fd) {
 //   char *prev;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     printf(1, "reading from buffer");
-    int start = 0;
-    int end = 0;
+    // int start = 0;
+    // int end = 0;
     for (i = 0; i < n; i++) {
-        printf(1, "%s\n", &buf[i]);
+        printf(1, "%c", buf[i]);
     //   if (buf[i] == '\n') {
     //     end = i;
     //     for (; start <= end; start++) {
