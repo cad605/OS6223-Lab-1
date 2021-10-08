@@ -13,12 +13,14 @@ void uniq(int fd) {
     int start = 0;
     int end = 0;
     for (i = 0; i < n; i++) {
-      if (buf[i] == '\n') {
-        end = i;
-        for (; start <= end; start++) {
-          printf(1, &buf[i]);
-        }
-      }
+        printf(1, "%s\n", &buf[i]);
+    //   if (buf[i] == '\n') {
+    //     end = i;
+    //     for (; start <= end; start++) {
+    //       printf(1, &buf[i]);
+    //     }
+    //     start = end;
+    //   }
     }
   }
   if (n < 0) {
