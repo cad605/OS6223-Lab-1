@@ -2,31 +2,24 @@
 #include "stat.h"
 #include "user.h"
 
-char buf[512];
-
 void uniq(int fd) {
   int i, n;
-//   char *curr;
-//   char *prev;
-  while ((n = read(fd, buf, sizeof(buf))) > 0) {
-    printf(1, "reading from buffer");
-    // int start = 0;
-    // int end = 0;
-    for (i = 0; i < n; i++) {
-        printf(1, "%c", buf[i]);
-    //   if (buf[i] == '\n') {
-    //     end = i;
-    //     for (; start <= end; start++) {
-    //       printf(1, &buf[i]);
-    //     }
-    //     start = end;
-    //   }
+  char buf[512];
+  
+  for (;;) {
+    n = read(0, buf, sizeof buf);
+    if (n == 0)
+      break;
+    if (n < 0) {
+      fprintf(2, "read error\n");
+      exit();
+    }
+    if (write(1, buf, n) != n) {
+      fprintf(2, "write error\n");
+      exit();
     }
   }
-  if (n < 0) {
-    printf(1, "uniq: read error\n");
-    exit();
-  }
+  
 }
 
 int main(int argc, char *argv[]) {
