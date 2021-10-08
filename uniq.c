@@ -18,14 +18,15 @@ void uniq(int fd) {
     for (i = 0; i < n; i++) {
 
       // handle overflow
-      if (sizeof(cur_line) == 2) {
+    //   if (sizeof(cur_line) == 2) {
         char *temp = (char *)malloc(BUFFSIZE * 2);
         strcpy(temp, cur_line);
         free(cur_line);
         cur_line = temp;
-      }
+    //   }
 
       *(cur_line + i) = buf[i];
+      printf(1, "%s", cur_line);
 
       // handle newline
       if (buf[i] == '\n') {
