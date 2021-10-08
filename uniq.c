@@ -8,10 +8,11 @@ char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
 
 char* toLowerCase(char* str) {
-    char* s = str;
-    while (*str != '\0') { // not the end of the string
+    char* s = (char *)malloc(sizeof(str));
+    strcpy(s, str);
+    while (*str != '\0') {
         if (*str >= 'A' && *str <= 'Z') {
-            *str = *str + 32;
+            *s = *str + 32;
         }
         ++ str;
     }
