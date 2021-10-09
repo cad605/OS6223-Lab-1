@@ -29,6 +29,7 @@ void uniq(int fd) {
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     j = 0;
+    count = 1;
     for (i = 0; i < n; i++) {
 
       // handle overflow
@@ -51,17 +52,33 @@ void uniq(int fd) {
       if (buf[i] == '\n' || i == n - 1) {
         if (ignore_case) {
           if (count_group) {
+            count++;
+            if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
+              printf(1, "%d %s", count, cur_line);
+            }
+          } else if (dups_only) {
+            if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
+              printf(1, "%s", cur_line);
+            }
+          } else {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
               printf(1, "%s", cur_line);
             }
-          } else if (dups_only) {
           }
         } else {
-            if (count_group) {
-                
+          if (count_group) {
+            count++;
+            if ((strcmp(cur_line, prev_line)) != 0) {
+              printf(1, "%d %s", count, cur_line);
             }
-          if ((strcmp(cur_line, prev_line)) != 0) {
-            printf(1, "%s", cur_line);
+          } else if (dups_only) {
+            if ((strcmp((cur_line), (prev_line))) == 0) {
+              printf(1, "%s", cur_line);
+            }
+          } else {
+            if ((strcmp((cur_line), (prev_line))) != 0) {
+              printf(1, "%s", cur_line);
+            }
           }
         }
 
@@ -71,6 +88,7 @@ void uniq(int fd) {
         free(cur_line);
         cur_line = (char *)malloc(sizeof(prev_line));
         j = 0;
+        count = 0;
       }
     }
   }
