@@ -57,6 +57,9 @@ void uniq(int fd) {
           } else if (dups_only) {
           }
         } else {
+            if (count_group) {
+                
+            }
           if ((strcmp(cur_line, prev_line)) != 0) {
             printf(1, "%s", cur_line);
           }
