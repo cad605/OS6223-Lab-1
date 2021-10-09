@@ -52,9 +52,11 @@ void uniq(int fd) {
       if (buf[i] == '\n' || i == n - 1) {
         if (ignore_case) {
           if (count_group) {
-            count++;
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
-              printf(1, "%d %s", count, cur_line);
+              printf(1, "%d %s", count, prev_line);
+              count = 0;
+            } else {
+              count++;
             }
           } else if (dups_only) {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
@@ -67,9 +69,11 @@ void uniq(int fd) {
           }
         } else {
           if (count_group) {
-            count++;
             if ((strcmp(cur_line, prev_line)) != 0) {
-              printf(1, "%d %s", count, cur_line);
+              printf(1, "%d %s", count, prev_line);
+              count = 0;
+            } else {
+              count++;
             }
           } else if (dups_only) {
             if ((strcmp((cur_line), (prev_line))) == 0) {
@@ -88,7 +92,6 @@ void uniq(int fd) {
         free(cur_line);
         cur_line = (char *)malloc(sizeof(prev_line));
         j = 0;
-        count = 0;
       }
     }
   }
