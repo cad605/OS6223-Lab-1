@@ -54,7 +54,7 @@ void uniq(int fd) {
           if (count_group) {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
               printf(1, "%d %s", count, prev_line);
-              count = 0;
+              count = 1;
             } else {
               count++;
             }
@@ -71,7 +71,7 @@ void uniq(int fd) {
           if (count_group) {
             if ((strcmp(cur_line, prev_line)) != 0) {
               printf(1, "%d %s", count, prev_line);
-              count = 0;
+              count = 1;
             } else {
               count++;
             }
