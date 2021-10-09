@@ -7,16 +7,16 @@ char buf[BUFFSIZE];
 char delimiter = '\n';
 static int count_group, dups_only, ignore_case = 0;
 
-char* toLowerCase(char* str) {
-    char* s = (char *)malloc(sizeof(str));
-    strcpy(s, str);
-    while (*str != '\0') {
-        if (*str >= 'A' && *str <= 'Z') {
-            *s = *str + 32;
-        }
-        ++ str;
+char *toLowerCase(char *str) {
+  char *s = (char *)malloc(sizeof(str));
+  strcpy(s, str);
+  while (*str != '\0') {
+    if (*str >= 'A' && *str <= 'Z') {
+      *s = *str + 32;
     }
-    return s;
+    ++str;
+  }
+  return s;
 }
 
 /* uniq: when fed an input, outputs the input with adjacent identical lines
@@ -49,11 +49,19 @@ void uniq(int fd) {
 
       // handle newline
       if (buf[i] == '\n' || i == n - 1) {
-        if (ignore_case && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
-          printf(1, "%s", cur_line);
-        } else if ((strcmp(cur_line, prev_line)) != 0) {
-          printf(1, "%s", cur_line);
+        if (ignore_case) {
+          if (count_group) {
+            if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
+              printf(1, "%s", cur_line);
+            }
+          } else if (dups_only) {
+          }
+        } else {
+          if ((strcmp(cur_line, prev_line)) != 0) {
+            printf(1, "%s", cur_line);
+          }
         }
+
         free(prev_line);
         prev_line = (char *)malloc(sizeof(cur_line));
         strcpy(prev_line, cur_line);
