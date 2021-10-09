@@ -25,7 +25,7 @@ void uniq(int fd) {
   char *cur_line = (char *)malloc(BUFFSIZE);
   char *prev_line = (char *)malloc(BUFFSIZE);
   ;
-  int i, n, j;
+  int i, n, j, count = 0;
 
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
     j = 0;
