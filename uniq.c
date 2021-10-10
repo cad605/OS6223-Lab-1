@@ -62,11 +62,12 @@ void uniq(int fd) {
               count++;
             }
           } else if (dups_only) {
-            if (count > 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
+            if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0){
+                count++;
+            }
+            if ((count > 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) || ((i = n-1) && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0)) {
                 printf(1, "%s", prev_line);
                 count = 1;
-            } else if (count >= 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
-                count++;
             }
           } else {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
@@ -84,11 +85,12 @@ void uniq(int fd) {
               count++;
             }
           } else if (dups_only) {
-            if (count > 1 && (strcmp((cur_line), (prev_line))) != 0) {
+            if ((strcmp((cur_line), (prev_line))) == 0){
+                count++;
+            }
+            if ((count > 1 && (strcmp((cur_line), (prev_line))) != 0) || ((i = n-1) && (strcmp((cur_line), (prev_line))) == 0)) {
                 printf(1, "%s", prev_line);
                 count = 1;
-            } else if (count >= 1 && (strcmp((cur_line), (prev_line))) == 0) {
-                count++;
             }
           } else {
             if ((strcmp((cur_line), (prev_line))) != 0) {
