@@ -33,13 +33,13 @@ void uniq(int fd) {
     for (i = 0; i < n; i++) {
 
       // handle overflow
-      if (j == BUFFSIZE) {
-        char *temp1 = (char *)malloc(BUFFSIZE * 2);
+      if (j == sizeof(cur_line)) {
+        char *temp1 = (char *)malloc(sizeof(cur_line) * 2);
         strcpy(temp1, cur_line);
         free(cur_line);
         cur_line = temp1;
 
-        char *temp2 = (char *)malloc(BUFFSIZE * 2);
+        char *temp2 = (char *)malloc(sizeof(cur_line) * 2);
         strcpy(temp2, prev_line);
         free(prev_line);
         prev_line = temp2;
