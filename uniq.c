@@ -36,13 +36,13 @@ void uniq(int fd) {
 
       // handle overflow
       if (j == sizeof(cur_line)) {
-          printf(1, "handling overflow...");
-        char *temp1 = (char *)malloc(sizeof(cur_line) * 2);
+        printf(1, "handling overflow...");
+        char *temp1 = (char *)malloc(strlen(cur_line) * sizeof(char) * 2);
         strcpy(temp1, cur_line);
         free(cur_line);
         cur_line = temp1;
 
-        char *temp2 = (char *)malloc(sizeof(cur_line) * 2);
+        char *temp2 = (char *)malloc(strlen(cur_line) * sizeof(char) * 2);
         strcpy(temp2, prev_line);
         free(prev_line);
         prev_line = temp2;
@@ -110,16 +110,16 @@ void uniq(int fd) {
             }
           } else {
             if ((strcmp((cur_line), (prev_line))) != 0) {
-              printf(1, "%s", cur_line);
+            //   printf(1, "%s", cur_line);
             }
           }
         }
 
         free(prev_line);
-        prev_line = (char *)malloc(sizeof(cur_line));
+        prev_line = (char *)malloc(strlen(cur_line) * sizeof(char));
         strcpy(prev_line, cur_line);
         free(cur_line);
-        cur_line = (char *)malloc(sizeof(prev_line));
+        cur_line = (char *)malloc(strlen(prev_line) * sizeof(char));
         j = 0;
       }
     }
