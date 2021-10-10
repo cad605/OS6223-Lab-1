@@ -1,7 +1,7 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#define BUFFSIZE 1
+#define BUFFSIZE 100
 
 char buf[BUFFSIZE];
 char delimiter = '\n';
@@ -24,13 +24,12 @@ char *toLowerCase(char *str) {
 void uniq(int fd) {
   char *cur_line = (char *)malloc(BUFFSIZE);
   char *prev_line = (char *)malloc(BUFFSIZE);
-  ;
   int i, n, j, lines, dup_count;
 
+  j = 0;
+  dup_count = 1;
+  lines = 0;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
-    j = 0;
-    dup_count = 1;
-    lines = 0;
 
     for (i = 0; i < n; i++) {
 
