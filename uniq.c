@@ -1,7 +1,7 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#define BUFFSIZE 100
+#define BUFFSIZE 512
 
 char buf[BUFFSIZE];
 char delimiter = '\n';
@@ -30,11 +30,13 @@ void uniq(int fd) {
   dup_count = 1;
   lines = 0;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
+    printf(1, "reading into buffer...");
 
     for (i = 0; i < n; i++) {
 
       // handle overflow
       if (j == sizeof(cur_line)) {
+          printf(1, "handling overflow...");
         char *temp1 = (char *)malloc(sizeof(cur_line) * 2);
         strcpy(temp1, cur_line);
         free(cur_line);
