@@ -37,6 +37,7 @@ void uniq(int fd) {
       // handle overflow
       if (j == sizeof(cur_line)) {
         printf(1, "handling overflow...");
+        printf(1, "size of line: %d...", strlen(cur_line));
         char *temp1 = (char *)malloc(strlen(cur_line) * sizeof(char) * 2);
         strcpy(temp1, cur_line);
         free(cur_line);
