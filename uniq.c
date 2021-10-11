@@ -46,13 +46,15 @@ void uniq(int fd) {
         prev_line = temp2;
       }
 
+      // build line
       *(cur_line + j) = buf[i];
       j++;
 
-      // handle newline
+      // handle newline break
       if (buf[i] == '\n' || i == n - 1) {
         lines++;
         if (ignore_case) {
+          // -i -c
           if (count_group && lines > 1) {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
               dup_count++;
@@ -66,6 +68,7 @@ void uniq(int fd) {
               printf(1, "%d %s", dup_count, prev_line);
               dup_count = 1;
             }
+            // -i -d
           } else if (dups_only && lines > 1) {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
               dup_count++;
@@ -84,6 +87,7 @@ void uniq(int fd) {
             }
           }
         } else {
+          // -c
           if (count_group && lines > 1) {
             if ((strcmp((cur_line), (prev_line))) == 0) {
               dup_count++;
@@ -97,6 +101,7 @@ void uniq(int fd) {
               printf(1, "%d %s", dup_count, prev_line);
               dup_count = 1;
             }
+            // -d
           } else if (dups_only && lines > 1) {
             if ((strcmp((cur_line), (prev_line))) == 0) {
               dup_count++;
