@@ -31,7 +31,7 @@ void uniq(int fd) {
   lines = 0;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
 
-    for (i = 0; i < n; i++) {
+    for (i = 0; i <= n; i++) {
 
       // handle overflow
       if (j > 0 && j == (strlen(cur_line) * sizeof(char))) {
@@ -59,10 +59,9 @@ void uniq(int fd) {
             }
             if (i == n - 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
               printf(1, "%d %s\n", dup_count, cur_line);
-              continue;
             } else if (i == n - 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
-                printf(1, "%d %s\n", dup_count, prev_line);
-                printf(1, "%d %s\n", 1, cur_line);
+                printf(1, "%d %s", dup_count, prev_line);
+                printf(1, "%d %s", 1, cur_line);
             } else if ((strcmp((cur_line), (prev_line))) != 0) {
               printf(1, "%d %s", dup_count, prev_line);
               dup_count = 1;
@@ -73,7 +72,6 @@ void uniq(int fd) {
             }
             if (i == n - 1 && dup_count > 1) {
               printf(1, "%s", cur_line);
-              continue;
             }
             if ((dup_count > 1 && (strcmp(toLowerCase(cur_line),
                                           toLowerCase(prev_line))) != 0)) {
@@ -91,11 +89,10 @@ void uniq(int fd) {
               dup_count++;
             }
             if (i == n - 1 && (strcmp((cur_line), (prev_line))) == 0) {
-              printf(1, "%d %s\n", dup_count, cur_line);
-              continue;
+              printf(1, "%d %s", dup_count, cur_line);
             } else if (i == n - 1 && (strcmp((cur_line), (prev_line))) != 0) {
-                printf(1, "%d %s\n", dup_count, prev_line);
-                printf(1, "%d %s\n", 1, cur_line);
+                printf(1, "%d %s", dup_count, prev_line);
+                printf(1, "%d %s", 1, cur_line);
             } else if ((strcmp((cur_line), (prev_line))) != 0) {
               printf(1, "%d %s", dup_count, prev_line);
               dup_count = 1;
@@ -106,7 +103,6 @@ void uniq(int fd) {
             }
             if (i == n - 1 && dup_count > 1) {
               printf(1, "%s", cur_line);
-              continue;
             }
             if ((dup_count > 1 && (strcmp((cur_line), (prev_line))) != 0)) {
               printf(1, "%s", prev_line);
