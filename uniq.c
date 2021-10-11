@@ -55,7 +55,7 @@ void uniq(int fd) {
         if (ignore_case) {
           if (count_group && lines > 1) {
             if (i == n - 1) {
-              printf(1, "%d %s", dup_count, cur_line);
+              printf(1, "%d %s\n", dup_count, cur_line);
               continue;
             }
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
@@ -85,7 +85,7 @@ void uniq(int fd) {
         } else {
           if (count_group && lines > 1) {
             if (i == n - 1) {
-              printf(1, "%d %s", dup_count, cur_line);
+              printf(1, "%d %s\n", dup_count, cur_line);
               continue;
             }
             if ((strcmp((cur_line), (prev_line))) == 0) {
@@ -106,7 +106,7 @@ void uniq(int fd) {
               printf(1, "%s", prev_line);
               dup_count = 1;
             }
-          } else {
+          } else if (!count_group && !dups_only){
             if ((strcmp((cur_line), (prev_line))) != 0) {
               printf(1, "%s", cur_line);
             }
