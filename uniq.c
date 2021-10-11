@@ -31,7 +31,7 @@ void uniq(int fd) {
   lines = 0;
   while ((n = read(fd, buf, sizeof(buf))) > 0) {
 
-    for (i = 0; i < n; i++) {
+    for (i = 0; i <= n; i++) {
 
       // handle overflow
       if (j > 0 && j == (strlen(cur_line) * sizeof(char))) {
