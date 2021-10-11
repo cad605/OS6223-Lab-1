@@ -60,7 +60,7 @@ void uniq(int fd) {
               dup_count++;
             }
             if (i == n - 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
-              printf(1, "%d %s", dup_count, cur_line);
+              printf(1, "%d %s", dup_count, prev_line);
             } else if (i == n - 1 && (strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
                 printf(1, "%d %s", dup_count, prev_line);
                 printf(1, "%d %s", 1, cur_line);
