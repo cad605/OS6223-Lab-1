@@ -34,7 +34,7 @@ void uniq(int fd) {
     for (i = 0; i < n; i++) {
 
       // handle overflow
-      if (j>0 && j == (strlen(cur_line) * sizeof(char))) {
+      if (j > 0 && j == (strlen(cur_line) * sizeof(char))) {
         char *temp1 = (char *)malloc(strlen(cur_line) * sizeof(char) * 2);
         strcpy(temp1, cur_line);
         free(cur_line);
@@ -54,13 +54,13 @@ void uniq(int fd) {
         lines++;
         if (ignore_case) {
           if (count_group && lines > 1) {
+            if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
+              dup_count++;
+            }
             if (i == n - 1) {
               printf(1, "%d %s\n", dup_count, cur_line);
               continue;
-            }
-            if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) == 0) {
-              dup_count++;
-            } else {
+            } else if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
               printf(1, "%d %s", dup_count, prev_line);
               dup_count = 1;
             }
@@ -77,20 +77,20 @@ void uniq(int fd) {
               printf(1, "%s", prev_line);
               dup_count = 1;
             }
-          } else {
+          } else if (!count_group && !dups_only) {
             if ((strcmp(toLowerCase(cur_line), toLowerCase(prev_line))) != 0) {
               printf(1, "%s", cur_line);
             }
           }
         } else {
           if (count_group && lines > 1) {
+            if ((strcmp((cur_line), (prev_line))) == 0) {
+              dup_count++;
+            }
             if (i == n - 1) {
               printf(1, "%d %s\n", dup_count, cur_line);
               continue;
-            }
-            if ((strcmp((cur_line), (prev_line))) == 0) {
-              dup_count++;
-            } else {
+            } else if ((strcmp((cur_line), (prev_line))) != 0) {
               printf(1, "%d %s", dup_count, prev_line);
               dup_count = 1;
             }
@@ -106,7 +106,7 @@ void uniq(int fd) {
               printf(1, "%s", prev_line);
               dup_count = 1;
             }
-          } else if (!count_group && !dups_only){
+          } else if (!count_group && !dups_only) {
             if ((strcmp((cur_line), (prev_line))) != 0) {
               printf(1, "%s", cur_line);
             }
