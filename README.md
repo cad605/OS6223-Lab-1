@@ -1,11 +1,5 @@
-No. 1
-No. 2
-No. 2
-No. 2
-No. 3
-No. 4
-No. 5
-No. 6
-No. 6
-No. 2
-no. 2
+Operating Systems CS-6223
+
+xv6
+
+Lab 1 - Implementing uniq
